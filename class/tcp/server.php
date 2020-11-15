@@ -1,6 +1,5 @@
 <?php
 
-    echo swoole_get_local_ip()['ens33'].":9501\n";
     //创建Server对象，监听 127.0.0.1:9501 端口
     $server = new Swoole\Server('0.0.0.1', 9501);
 
