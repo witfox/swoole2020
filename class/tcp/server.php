@@ -1,7 +1,7 @@
 <?php
 
     //创建Server对象，监听 127.0.0.1:9501 端口
-    $server = new Swoole\Server('0.0.0.1', 9503);
+    $server = new Swoole\Server('0.0.0.0', 9503);
 
     $server->set(array(
         'open_length_check' => true,
