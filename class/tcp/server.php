@@ -2,7 +2,15 @@
 
     echo swoole_get_local_ip()['ens33'].":9501\n";
     //创建Server对象，监听 127.0.0.1:9501 端口
-    $server = new Swoole\Server('127.0.0.1', 9501);
+    $server = new Swoole\Server('0.0.0.1', 9501);
+
+    $server->set(array(
+        'open_length_check' => true,
+        'package_max_length' => 2 * 1024 * 1024,
+        'package_length_type' => 'n', //see php pack()
+        'package_length_offset' => 0,
+        'package_body_offset' => 2,
+    ));
 
     //监听连接进入事件
     $server->on('Connect', function ($server, $fd) {
