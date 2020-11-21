@@ -4,7 +4,7 @@ class WebsocketServer {
 
     private $server;
     private $ip = "0.0.0.0";
-    private $port = "9503";
+    private $port = "9500";
 
     public function __construct()
     {
@@ -14,14 +14,12 @@ class WebsocketServer {
 
     public function open($server, $request)
     {
-        var_dump($request->fd, $request->server);
         $server->push($request->fd, "hello, welcome\n");
     }
 
     public function message($server, $frame)
     {
-        echo "Message: {$frame->data}\n";
-        $server->push($frame->fd, "server: {$frame->data}");
+        $server->push($frame->fd, json_encode(["msg" => "Hello"]));
     }
 
     public function close($fd)
