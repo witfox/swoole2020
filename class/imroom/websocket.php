@@ -9,19 +9,19 @@ class WebsocketServer {
     public function __construct()
     {
         $this->server = new \Swoole\WebSocket\Server($this->ip, $this->port);
-        $this->onInit($this->server);
+        $this->onInit();
     }
 
-    public function open($ws, $request)
+    public function open($server, $request)
     {
         var_dump($request->fd, $request->server);
-        $ws->push($request->fd, "hello, welcome\n");
+        $server->push($request->fd, "hello, welcome\n");
     }
 
-    public function message($ws, $frame)
+    public function message($server, $frame)
     {
         echo "Message: {$frame->data}\n";
-        $ws->push($frame->fd, "server: {$frame->data}");
+        $server->push($frame->fd, "server: {$frame->data}");
     }
 
     public function close($fd)
@@ -29,16 +29,14 @@ class WebsocketServer {
         echo "client-{$fd} is closed\n";
     }
 
-    public function onInit($ws)
+    public function onInit()
     {
-        $ws->on('open', [$this, 'open']);
-        $ws->on('message', [$this, 'message']);
-        $ws->on('close', [$this, 'close']);
-        $ws->start();
+        $this->server->on('open', [$this, 'open']);
+        $this->server->on('message', [$this, 'message']);
+        $this->server->on('close', [$this, 'close']);
     }
-    
-    public function start($ws)
+    public function start()
     {
-        $ws->start();
+        $this->server->start();
     }
 }
