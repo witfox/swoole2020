@@ -18,14 +18,9 @@
 
     //监听数据接收事件
     $server->on('Receive', function ($server, $fd, $from_id, $data) {
-        var_dump($data);
-
         $fooLen = unpack('n', $data, 0)[1];
-        var_dump($fooLen);
-
         $con = substr($data, 2, $fooLen);
         var_dump($con);
-
         $server->send($fd, "Server: " . $con);
     });
 
