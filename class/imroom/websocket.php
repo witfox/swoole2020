@@ -40,3 +40,5 @@ class WebsocketServer {
         $this->server->start();
     }
 }
+
+(new WebsocketServer)->start();
