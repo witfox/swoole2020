@@ -10,7 +10,9 @@ class AdminServer
 
     public function __construct()
     {
+        echo "server is start...";
         $this->server = new Server($this->ip, $this->port);
+        $this->onEvnet();
     }
 
     public function connect(Server $server, $fd)
@@ -50,6 +52,13 @@ class AdminServer
     public function close(Server $server, $fd)
     {
         echo "Client: Close.\n";
+    }
+
+    protected function onEvnet()
+    {
+        $this->server->on('connect', [$this, 'connect']);
+        $this->server->on('receive', [$this, 'receive']);
+        $this->server->on('close'  , [$this, 'close']);
     }
     public function start()
     {
