@@ -33,7 +33,7 @@ class AdminServer
     public function machineStop(Server $server, $fd, $from_id, $data)
     {
         //停止机器
-        $this->send('127.0.0.1', '9505', json_encode($data));
+        $this->send('192.168.3.141', '9505', json_encode($data));
         $server->send($fd, json_encode(['code'=> 200, 'msg'=> 'ok']));
     }
 

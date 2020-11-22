@@ -4,7 +4,7 @@ use Swoole\Server;
 class Listen
 {
     private $server;
-    private $ip = '';
+    private $ip = '192.168.3.141';
     private $port = '9505';
     private $listen;
     public function __construct($server)
