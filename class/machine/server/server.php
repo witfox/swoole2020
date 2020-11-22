@@ -22,16 +22,19 @@ class AdminServer
     public function receive(Server $server, $fd, $from_id, $data)
     {
         echo "接收到机器人的消息";
+        var_dump($data);
         $data = json_decode($data, true);
         $this->{$data['method']}($server, $fd, $from_id, $data);
     }
 
     public function machineInfo(Server $server, $fd, $from_id, $data)
     {
+        echo "machineInfo \n";
         $server->send($fd, json_encode($data));
     }
     public function machineStop(Server $server, $fd, $from_id, $data)
     {
+        echo "machineStop \n";
         //停止机器
         $this->send('192.168.3.141', '9555', json_encode($data));
         $server->send($fd, json_encode(['code'=> 200, 'msg'=> 'ok']));

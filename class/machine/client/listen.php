@@ -21,7 +21,7 @@ class Listen
     {
         $data = json_decode($data, true);
         if($data['code'] == 9){
-            echo "stop server.\n";
+            echo "tcpClient stop server.\n";
             $this->server->shutdown();
         }else{
             $server->send($fd, "listen:",$data['msg']);
